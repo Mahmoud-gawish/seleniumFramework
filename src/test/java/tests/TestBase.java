@@ -8,7 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -42,8 +45,8 @@ public class TestBase extends AbstractTestNGCucumberTests {
 		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
 		chromePrefs.put("profile.default.content_settings.popups",0);
 		chromePrefs.put("download.default_directory", downloadPath);
-		options.setExperimentalOption("prefs", chromePrefs);
-		options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		//options.setExperimentalOption("prefs", chromePrefs);
+		//options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		return options;
 
 	}
@@ -60,6 +63,21 @@ public class TestBase extends AbstractTestNGCucumberTests {
 		if (browserName.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/drivers/chromedriver.exe");
 			driver = new ChromeDriver(chromeOption());
+		}
+		
+		
+		/// headless browser testing 
+		
+		else if(browserName.equalsIgnoreCase("headless")) {
+			
+			
+			DesiredCapabilities caps = new DesiredCapabilities();
+			caps.setJavascriptEnabled(true);
+			caps.setCapability(PhantomJSDriverService.PHANTOMJS_GHOSTDRIVER_PATH_PROPERTY, 
+					System.getProperty("user.dir")+"\\drivers\\phantomjs.exe");
+			String[] phantomJSArgs= {"--web-security=no","--ignore-ssl-errors=yes"};
+			caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, phantomJSArgs);
+			driver = new PhantomJSDriver(caps);
 		}
 		else if (browserName.equalsIgnoreCase("firefox")) {
 
