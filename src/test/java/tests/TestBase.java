@@ -8,10 +8,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
+//import org.openqa.selenium.phantomjs.PhantomJSDriver;
+//import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+//import org.openqa.selenium.remote.CapabilityType;
+//import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -59,7 +59,7 @@ public class TestBase extends AbstractTestNGCucumberTests {
 
 	@BeforeSuite
 	@Parameters({"browser"})
-	public void startDriver(@Optional("firefox") String browserName) {
+	public void startDriver(@Optional("chrome") String browserName) {
 		if (browserName.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/drivers/chromedriver.exe");
 			driver = new ChromeDriver(chromeOption());
@@ -68,7 +68,7 @@ public class TestBase extends AbstractTestNGCucumberTests {
 		
 		/// headless browser testing 
 		
-		else if(browserName.equalsIgnoreCase("headless")) {
+		/*else if(browserName.equalsIgnoreCase("headless")) {
 			
 			
 			DesiredCapabilities caps = new DesiredCapabilities();
@@ -78,6 +78,16 @@ public class TestBase extends AbstractTestNGCucumberTests {
 			String[] phantomJSArgs= {"--web-security=no","--ignore-ssl-errors=yes"};
 			caps.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, phantomJSArgs);
 			driver = new PhantomJSDriver(caps);
+		}*/
+		
+		else if(browserName.equalsIgnoreCase("chrome-headless")) {
+			
+			System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/drivers/chromedriver.exe");
+			ChromeOptions options  = new ChromeOptions();
+			options.addArguments("--headless");
+			options.addArguments("--window-size=1920,1080");
+			driver = new ChromeDriver(options);
+			
 		}
 		else if (browserName.equalsIgnoreCase("firefox")) {
 

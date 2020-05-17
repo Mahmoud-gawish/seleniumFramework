@@ -1,7 +1,11 @@
 package tests;
 
+import javax.crypto.spec.OAEPParameterSpec;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import com.github.javafaker.Faker;
 
 import pages.HomePage;
 import pages.ProductDetaildPage;
@@ -18,7 +22,13 @@ public class AddProductReviewTest extends TestBase{
 	ProductDetaildPage detailsObject;
 	String productName= "Apple MacBook Pro 13-inch";
 	
-	String Email = "fkff54848j@yahoo.com";
+	Faker fakedata = new Faker();
+
+	String firstname = fakedata.name().firstName();
+	String lastname = fakedata.name().lastName();
+	String email = fakedata.internet().emailAddress();
+	String pasword = fakedata.number().digits(8).toString();
+
 	
 	ProductReviewPage reviewObject;
 	
@@ -27,12 +37,12 @@ public class AddProductReviewTest extends TestBase{
 	
 	@Test(priority = 1,alwaysRun = true)
 	public void userCanREgisterSuccessfully() {
-		driver.navigate().to("https://demo.nopcommerce.com/");
+		
 		
 		homeObject = new HomePage(driver);
 		homeObject.openRegistrationPage();
 		registerObject = new UserRegistrationPage(driver);
-		registerObject.userRegistration("Mahmoud","Gawish", "hgffx5zfs57fsdfrsp@yahoo.com", "123456789");
+		registerObject.userRegistration(firstname,lastname,email,pasword);
 		Assert.assertTrue(registerObject.successMessage.getText().contains("Your registration completed"));
 	
 
