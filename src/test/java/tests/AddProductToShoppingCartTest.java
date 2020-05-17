@@ -18,7 +18,7 @@ public class AddProductToShoppingCartTest extends TestBase{
 	@Test(priority=1)
 	public void userCanSearchWithAutoSuggest() {
 		try {
-			driver.navigate().to("https://demo.nopcommerce.com/");
+			
 			searchObject = new SearchPage(driver);
 			searchObject.productSearchUsingAutoSuggest("macb");
 			detailsObject = new ProductDetaildPage(driver);

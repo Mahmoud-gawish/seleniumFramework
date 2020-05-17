@@ -29,7 +29,7 @@ public class AddProductToCompareTest extends TestBase {
 	
 	@Test(priority=1)
 	public void userCanCompareProducts() throws InterruptedException {
-		driver.navigate().to("https://demo.nopcommerce.com/");
+	
 		
 		detalisObject = new ProductDetaildPage(driver);
 		searchObject = new SearchPage(driver);

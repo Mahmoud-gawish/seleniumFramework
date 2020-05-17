@@ -20,7 +20,7 @@ public class AddProductToWishListTest extends TestBase {
 	
 	@Test(priority=1)
 	public void userCanSearchForProduct() {
-		driver.navigate().to("https://demo.nopcommerce.com/");
+		
 		detailsObject = new ProductDetaildPage(driver);
 		searchObject = new SearchPage(driver);
 		searchObject.productSearch(productName);
