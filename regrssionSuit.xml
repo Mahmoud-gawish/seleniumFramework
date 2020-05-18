@@ -7,9 +7,9 @@
     <classes>
       
        <class name="tests.AddProductReviewTest"/>
-      <class name="tests.AddProductToCompareTest"></class>
+
       
-      
+      <class name="tests.AddProductToWishListTest"></class>
       
       
       
